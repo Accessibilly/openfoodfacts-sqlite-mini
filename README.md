@@ -144,6 +144,12 @@ https://sqlitebrowser.org/
 
 A quick google search for "sqlite app review" or the like will lead you to apps that you might find more fitting.
 
+## Git Large File Storage (LFS)
+The 160 MB file size of "openfoodfacts-sqlite-mini.db" exceeded GitHub's 25 MB limit for browser-based uploads. Installing Git Large File Storage (LFS), following the user guidelines, and then calling `git push` from the command line worked for me.
+
+https://git-lfs.com/
+
+If you create a "derived work" from the Open Food Facts database such as a version of the database in an alternate file format, or minified and filtered as I've done, then you'll need to publish your derived work according to the Terms of Use.
 
 ## Swift Interface to the SQLite 3 database
 If you're going to write Swift code that interfaces to the SQLite3 database in this repository, then I **heartily** recommend using GRDB:
