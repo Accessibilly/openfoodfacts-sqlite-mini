@@ -6,7 +6,7 @@ The minified SQLite 3 version of the Open Food Facts database in this repository
 * productName
 * countries
 
-There are about 245k records in the SQLite 3 database. I'm calling this derived database a "version" rather than a "copy" of the Open Food Facts database because the SQLite 3 database excludes about 200 columns of data, and also because I've filtered out about 17% of the records from the original database, as explained below. 
+There are about 245k records in the SQLite 3 database. I'm calling this derived database a "version" rather than a "copy" of the Open Food Facts database. The SQLite 3 database excludes about 200 columns of data, and also keeps only about 17% of the records from the original database, as explained below. 
 
 On a Mac, the total size on disk is about 160 MB. And yes, this is a **minified** version of the Open Food Facts database.
 
@@ -62,21 +62,21 @@ Some records in the database are more complete than others. If you download the 
 If you try the [Open Food Facts mobile app]([url](https://world.openfoodfacts.org/open-food-facts-mobile-app)), you'll see that there's a lot of data you **could** enter, but that you may not choose to enter.  
 
 ## Changes for the Minified Database
-The minified version of the Open Food Facts started as a copy, but then I filtered out about 500k records, leaving a little over 80% of the original records.
+The minified version of the Open Food Facts started as a copy, but then I filtered out **most** of the records, leaving about 17% of the originals.
 
 A record was removed if either of the following cases was true:
 
 * The length of the `code` column, after removing leading zeroes, was less than 12 characters or more than 14 characters.
 * The `productName` column was empty.
 
-Your SQLage may vary, but for the time being I only need UPC / EAN codes 12 - 14 characters long.
+Your SQLage may vary, but the SQLite 3 database in this repository contains records only for [UPC / EAN]([url](https://en.wikipedia.org/wiki/Universal_Product_Code)) codes 12 - 14 characters long. That cuts out a lot of records with short and/or incomplete barcode data.
 
 Additional changes:
 
 * `code` column cells: removed leading zeroes (e.g. '000123456789' changed to '123456789')
 * column `product_name` renamed to `productName` ('cause I like it like that)
 
-Maybe I introduced some errors, but so it goes.
+Maybe I introduced some errors, but if so I'll fix those. For now I prefer having a database that's "only" 160 MB.
 
 # Programmatic Steps to Create a Minified Database
 If you want to create your own version of a minified version of the Open Food Facts database. If you use MongoDB, perhaps you just need the MongoDB dump and you're on your way.
