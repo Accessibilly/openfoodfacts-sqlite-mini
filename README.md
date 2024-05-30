@@ -100,6 +100,7 @@ If you're writing code to process the 9 GB CSV data file downloaded from the Ope
 1. Join the substrings with a comma character `,`.
 1. Store the joined string of data cells as the next element of your string array.
 1. Repeat steps 11 - 16 above until you reach the end of the raw Open Food Facts data file.
+1. (As need) Prepend "\u{FEFF}" to your output file to ensure characters are displayed correctly.
 1. Write your array of strings to an output file with the file extension **.csv**. (Remember to append `\n` to each element to add a newline character.)
 1. Open your newly created CSV file in Excel, or import the CSV file into a database.
 1. Scroll through the data and find out what broke. Fix that.
@@ -119,9 +120,11 @@ Maybe there's a way to configure SQLite 3 to get around that, but I try to keep 
 
 Here's what I'd enter in Terminal on Mac OS to create a database called "minifyMe.db" and then import the CSV file "output.csv" into a table called "minifiedData":
 
-`myprompt % sqlite3 minifyMe.db`
+```
+myprompt % sqlite3 minifyMe.db
 
-`[sqlite> .import --csv output.csv minifiedData`
+[sqlite> .import --csv output.csv minifiedData
+```
 
 If "output.csv" contains semicolon characters `;`, then in my experience the semi-colons will be treated as field delimiters.
 
@@ -151,12 +154,30 @@ https://git-lfs.com/
 
 If you create a "derived work" from the Open Food Facts database such as a version of the database in an alternate file format, or minified and filtered as I've done, then you'll need to publish your derived work according to the Terms of Use.
 
+## CSV Files and UTF-8 
+If you write output data to a CSV file, you may have to write "\u{FEFF}" to the file before writing the elements of your string array to the file. 
+
+In Swift, you might use something like this:
+
+```
+let fileHandle = try FileHandle(forWritingTo: outputUrl)
+        
+let BOM = "\u{FEFF}"
+fileHandle.write(Data(BOM.utf8))
+
+\\loop over remaining elements, and write each element to file: rows[i] + "\n"
+```
+
+See 
+https://stackoverflow.com/questions/2585024/create-an-utf-8-string-with-bom/2585194#2585194.
+
+
 ## Swift Interface to the SQLite 3 database
 If you're going to write Swift code that interfaces to the SQLite3 database in this repository, then I **heartily** recommend using GRDB:
 
 https://github.com/groue/GRDB.swift
 
-The developers is responsive and considerate, the documentation is thorough, and for my Swift projects the GRDB library has worked very well. Of the open source software I've used in the past few years, including both standalone applications and open source libraries, GRDB is my favorite open source project by a wide margin.
+The developer is responsive and considerate, the documentation is thorough, and for my Swift projects the GRDB library has worked very well. Of the open source software I've used in the past few years, including both standalone applications and open source libraries, GRDB is my favorite open source project by a wide margin.
 
 For database tasks that would be tricky or infeasible (for me) to implement as SQL queries alone, I use Swift + GRDB.
 
