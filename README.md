@@ -39,7 +39,7 @@ When I checked--briefly--there wasn't a minified SQLite 3 database in GitHub or 
 ## Justification for the Minified Database
 If you need to associate a UPC/EAN code with a product name and the country of origin, but don't (yet) need the ingredients or other information, then this minified SQLite 3 database may be what you need.
 
-Barcodes are not necessarily unique: the same barcode can be associated with different products in Germany and Spain. You might want to cross-reference a barcode with a geographic location, which is why I included the `countries` column.
+There are about 2000 records with duplicate values in the `code` column. Of those, for about 80 codes there are two records that different by the wording in the `productName` column and/or in the listing within the `countries` column. Your SQL queries and/or code to handle that small percentage of cases may different from mine, so I kept the records that have duplicate `code` values.
 
 Of course, you could delete columns and make the minified database yet smaller. Go, you!
  
@@ -76,7 +76,7 @@ Additional changes:
 * `code` column cells: removed leading zeroes (e.g. '000123456789' changed to '123456789')
 * column `product_name` renamed to `productName` ('cause I like it like that)
 
-Maybe I introduced some errors, but if so I'll fix those. For now I prefer having a database that's "only" 160 MB.
+Maybe I introduced some errors, but if so I'll fix those. 
 
 # Programmatic Steps to Create a Minified Database
 If you want to create your own version of a minified version of the Open Food Facts database. If you use MongoDB, perhaps you just need the MongoDB dump and you're on your way.
