@@ -154,6 +154,11 @@ https://git-lfs.com/
 
 If you create a "derived work" from the Open Food Facts database such as a version of the database in an alternate file format, or minified and filtered as I've done, then you'll need to publish your derived work according to the Terms of Use.
 
+## CSView for Large CSV Files
+If you want to scroll through a large CSV file quickly and easily, check out CSView from Kothar Labs:
+
+https://kothar.net/csview
+
 ## CSV Files and UTF-8 
 If you write output data to a CSV file, you may have to write "\u{FEFF}" to the file before writing the elements of your string array to the file. 
 
