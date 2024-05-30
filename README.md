@@ -1,12 +1,12 @@
 # openfoodfacts-sqlite-mini
-The minified SQLite 3 copy of the Open Food Facts database in this repository contains just four columns:
+The minified SQLite 3 version of the Open Food Facts database in this repository contains just four columns:
 
 * id
 * code
 * productName
 * countries
 
-There are about 245k records.
+There are about 245k records in the SQLite 3 database. I'm calling this derived database a "version" rather than a "copy" of the Open Food Facts database because the SQLite 3 database excludes about 200 columns of data, and also because I've filtered out about 17% of the records from the original database, as explained below. 
 
 On a Mac, the total size on disk is about 160 MB. And yes, this is a **minified** version of the Open Food Facts database.
 
